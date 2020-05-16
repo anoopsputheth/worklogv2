@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
 
+use yii\helpers\Url;
+
 use app\modules\company\models\Company;
 
 ?>
@@ -23,31 +25,40 @@ use app\modules\company\models\Company;
 ?>
 
 
+
+
 <div class="company-form">
 
-    <?php $form = ActiveForm::begin([ 'enableAjaxValidation' => true, 'action' => ['create'] ]);  
+    <?php $form = ActiveForm::begin([ 
 
-     $model = new Company(); ?>
+        'id' => 'form_create_company',
+        'validationUrl' => Url::toRoute('/company/company/validate'),
+        'enableAjaxValidation' => true, 
+        'action' => Url::toRoute('/company/company/create')
+    ]);  
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
+        $model = new Company(); ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fax')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'zip')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'fax')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'zip')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     
 
@@ -77,6 +88,12 @@ $this->title = 'Companies';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="company-index">
+
+
+    <div id="div_flash_success" class="alert alert-success" style="display: none;background-color: #5cb85c; color: #fff;"></div>
+
+    <div id="div_flash_error" class="alert alert-warning" style="display: none;background-color: red; color: #fff;"></div>
+    
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -132,7 +149,49 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
              
-        });'
+        });
+
+
+        $("form#form_create_company").on("beforeSubmit", function (e) { 
+
+            var form = $(this);
+             // submit form
+
+
+          $.post(
+
+              form.attr("action"),
+              form.serialize(),
+
+          )
+
+
+          .done(function(response){  
+
+               let alertMsg = "";
+
+               $("#modal_create_company").modal("hide"); 
+
+               if(response === "1")
+               {
+                 alertMsg = "Company Created Successfully!";
+                 $("#div_flash_success").html(alertMsg).fadeIn(3000).animate({opacity: 1.0}, 3000).fadeOut(3000); 
+               }
+
+               else
+               {
+                 alertMsg = "Some error occured while creating company";
+                 $("#div_flash_error").html(alertMsg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow"); 
+               }
+
+           });
+
+           return false;
+
+
+         });
+
+        '
     );
 
 
