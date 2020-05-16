@@ -83,22 +83,21 @@ class CompanyController extends Controller
 
     }
 
+
+
     public function actionCreate()
     {
 
-        //echo 'company saved'; 
-        
         $model = new Company();
         
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
            // Yii::$app->session->setFlash('success', "company added successfully."); 
+           //  Yii::$app->response->format = Response::FORMAT_JSON;
 
-            //  Yii::$app->response->format = Response::FORMAT_JSON;
             echo "1";
-        }
 
+        }
 
         else
         {
@@ -107,6 +106,7 @@ class CompanyController extends Controller
         }
 
     }
+
 
     /**
      * Updates an existing Company model.
