@@ -72,7 +72,6 @@ class CompanyController extends Controller
 
        $model = new Company();
 
-
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -80,15 +79,19 @@ class CompanyController extends Controller
 
         }
 
-
     }
 
 
 
     public function actionCreate()
-    {
+    {  
 
         $model = new Company();
+
+       // $model->created_at = time();
+
+
+       // $model->address = empty(trim($model->address)) ? 'NULL' : $model->address;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
