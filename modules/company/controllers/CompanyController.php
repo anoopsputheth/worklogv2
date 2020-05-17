@@ -90,8 +90,6 @@ class CompanyController extends Controller
 
        // $model->created_at = time();
 
-
-       // $model->address = empty(trim($model->address)) ? 'NULL' : $model->address;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 

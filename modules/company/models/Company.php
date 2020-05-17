@@ -39,6 +39,7 @@ class Company extends \yii\db\ActiveRecord
         return [
             [['name', 'contact_person', 'phone', 'email'], 'required'],
             [['name'], 'unique'],
+            [['name', 'contact_person', 'address', 'phone', 'fax', 'email', 'zip', 'city', 'state', 'description'], 'trim'],
             [['address', 'fax', 'zip', 'city', 'state', 'description'], 'default', 'value' => null],
             [['description'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
