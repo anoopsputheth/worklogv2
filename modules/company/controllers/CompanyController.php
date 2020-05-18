@@ -94,7 +94,7 @@ class CompanyController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
            // Yii::$app->session->setFlash('success', "company added successfully."); 
-           //  Yii::$app->response->format = Response::FORMAT_JSON;
+           // Yii::$app->response->format = Response::FORMAT_JSON;
 
             echo "1";
 
