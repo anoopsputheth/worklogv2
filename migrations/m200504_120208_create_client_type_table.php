@@ -24,6 +24,8 @@ class m200504_120208_create_client_type_table extends Migration
 
             'updated_at' => $this->timestamp()->defaultValue(null),
 
+            'deleted_at' => $this->timestamp()->defaultValue(null),
+
         ]);
     }
 

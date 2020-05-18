@@ -24,6 +24,8 @@ class m200504_105920_create_charging_method_table extends Migration
 
             'updated_at' => $this->timestamp()->defaultValue(null),
 
+            'deleted_at' => $this->timestamp()->defaultValue(null),
+
         ]);
     }
 

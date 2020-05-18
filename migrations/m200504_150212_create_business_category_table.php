@@ -25,6 +25,8 @@ class m200504_150212_create_business_category_table extends Migration
 
             'updated_at' => $this->timestamp()->defaultValue(null),
 
+            'deleted_at' => $this->timestamp()->defaultValue(null),
+
         ]);
     }
 
