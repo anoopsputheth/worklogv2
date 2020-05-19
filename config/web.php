@@ -16,6 +16,10 @@ $config = [
         'company' => [
                 'class' => 'app\modules\company\Company',
             ],
+
+        'client' => [
+            'class' => 'app\modules\client\Client',
+        ],
         
      ],
     'components' => [

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\ActiveForm;
+use yii\widgets\Pjax; 
 
 use yii\helpers\Url;
 
@@ -103,29 +104,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'contact_person',
-            'address',
-            'phone',
-            //'fax',
-            //'email:email',
-            //'zip',
-            //'city',
-            //'state',
-            //'description:ntext',
-            //'created_at',
-            //'updated_at',
+    <?php Pjax::begin(['enablePushState' => false]) ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+      <?= GridView::widget([
+          'dataProvider' => $dataProvider,
+          'filterModel' => $searchModel,
+          'columns' => [
+              ['class' => 'yii\grid\SerialColumn'],
+
+              'id',
+              'name',
+              'contact_person',
+              'address',
+              'phone',
+              //'fax',
+              //'email:email',
+              //'zip',
+              //'city',
+              //'state',
+              //'description:ntext',
+              //'created_at',
+              //'updated_at',
+
+              ['class' => 'yii\grid\ActionColumn'],
+          ],
+      ]); ?>
+
+
+     <?php Pjax::end() ?>
 
 
 </div>
@@ -174,6 +181,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
                if(response === "1")
                {
+                 
+
+                 var url = $("#p0 li.active a").attr("href");
+
+
+
+
+$.pjax.reload({container:"#p0", url: url});
                  alertMsg = "Company Created Successfully!";
                  $("#div_flash_success").html(alertMsg).fadeIn(3000).animate({opacity: 1.0}, 3000).fadeOut(3000); 
                }
