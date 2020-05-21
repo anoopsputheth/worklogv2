@@ -88,6 +88,46 @@ class m200518_143812_create_client_table extends Migration
 
  
         ]);
+
+
+
+        // add foreign key for table `client`
+
+        $this->addForeignKey(
+
+            'fk-client-client_type_id',
+            'client',
+            'client_type_id',
+            'client_type',
+            'id',
+            'RESTRICT'
+        );
+
+
+        $this->addForeignKey(
+
+            'fk-client-company_id',
+            'client',
+            'company_id',
+            'company',
+            'id',
+            'RESTRICT'
+        );
+
+        
+        $this->addForeignKey(
+
+            'fk-client-business_category_id',
+            'client',
+            'business_category_id',
+            'business_category',
+            'id',
+            'RESTRICT'
+        );
+
+
+        
+
     }
 
     /**

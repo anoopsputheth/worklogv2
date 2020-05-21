@@ -105,7 +105,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-    <?php Pjax::begin(['enablePushState' => false]) ?>
+    <?php 
+           Pjax::begin([
+
+             'id' => 'div_pjax_companies_container', 
+             'enablePushState' => false
+
+           ]) 
+    ?>
 
       <?= GridView::widget([
           'dataProvider' => $dataProvider,
@@ -183,13 +190,12 @@ $this->params['breadcrumbs'][] = $this->title;
                {
                  
 
-                 var url = $("#p0 li.active a").attr("href");
+                 var url = $("#div_pjax_companies_container li.active a").attr("href");
 
+                 $.pjax.reload({container: "#div_pjax_companies_container", url: url, enablePushState: false});
 
-
-
-$.pjax.reload({container:"#p0", url: url});
                  alertMsg = "Company Created Successfully!";
+
                  $("#div_flash_success").html(alertMsg).fadeIn(3000).animate({opacity: 1.0}, 3000).fadeOut(3000); 
                }
 

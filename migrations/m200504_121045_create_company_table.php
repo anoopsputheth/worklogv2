@@ -45,6 +45,18 @@ class m200504_121045_create_company_table extends Migration
 
 
         ]);
+
+
+        // create index for column `name`
+
+        $this->createIndex(
+
+            'idx-company-name',
+            'company',
+            'name'
+       );
+
+
     }
 
     /**
