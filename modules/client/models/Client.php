@@ -69,7 +69,10 @@ class Client extends \yii\db\ActiveRecord
         return [
             [['name', 'client_type_id', 'company_id', 'email_1', 'business_category_id'], 'required'],
             [['name'], 'unique'],
-            [['name',], 'trim'],
+            [['email_1', 'email_2', 'email_3'], 'email'],
+            [['name','address', 'zip', 'city', 'state', 'contact_person_1', 'contact_person_2', 'contact_person_3', 'contact_person_1_role', 'contact_person_2_role', 'contact_person_3_role', 'phone_1', 'phone_2', 'cell_no', 'fax', 'email_1' ,'email_2', 'email_3', 'client_referral', 'charging_rate', 'network_structure', 'description'], 'trim'],
+            [['address', 'zip', 'city', 'state', 'contact_person_1', 'contact_person_2', 'contact_person_3', 'contact_person_1_role', 'contact_person_2_role', 'contact_person_3_role', 'phone_1', 'phone_2', 'cell_no', 'fax', 'email_2', 'email_3', 'client_referral', 'office_working_day_start', 'office_working_day_end', 'office_working_hour_start', 'office_working_hour_end', 'charging_method_id', 'charging_rate', 'network_structure', 'description', 'created_at', 'updated_at', 'deleted_at'], 'default', 'value' => null],
+            [['daily_backup', 'weekly_backup'], 'default', 'value' => 'no'],
             [['client_type_id', 'company_id', 'charging_method_id', 'business_category_id'], 'integer'],
             [['daily_backup', 'weekly_backup', 'description'], 'string'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],

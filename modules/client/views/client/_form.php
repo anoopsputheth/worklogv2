@@ -80,11 +80,11 @@ use app\models\BusinessCategory;
 
    
 
-    <?= $form->field($model, 'office_working_day_start')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday',], ['prompt' => 'Select']) ?>
+    <?= $form->field($model, 'office_working_day_start')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday'], ['prompt' => 'Select']) ?>
 
     
 
-    <?= $form->field($model, 'office_working_day_end')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday',], ['prompt' => 'Select']) ?>
+    <?= $form->field($model, 'office_working_day_end')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday'], ['prompt' => 'Select']) ?>
 
 
     <?= $form->field($model, 'office_working_hour_start')->textInput(['maxlength' => true]) ?>
@@ -115,9 +115,9 @@ use app\models\BusinessCategory;
 
     <?= $form->field($model, 'network_structure')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'daily_backup')->dropDownList([ 'no' => 'No', 'yes' => 'Yes', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'daily_backup')->dropDownList([ 'no' => 'No', 'yes' => 'Yes', ], ['prompt' => 'Select']) ?>
 
-    <?= $form->field($model, 'weekly_backup')->dropDownList([ 'no' => 'No', 'yes' => 'Yes', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'weekly_backup')->dropDownList([ 'no' => 'No', 'yes' => 'Yes', ], ['prompt' => 'Select']) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 

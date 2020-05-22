@@ -9,6 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use yii\widgets\ActiveForm;
+use yii\web\Response;
+
+
 /**
  * ClientController implements the CRUD actions for Client model.
  */
@@ -62,17 +66,45 @@ class ClientController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
-        $model = new Client();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+
+    public function actionValidate()
+    {
+
+       $model = new Client();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+
         }
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
+    }
+
+
+    public function actionCreate()
+    {
+
+       $model = new Client();
+
+       // $model->created_at = time();
+
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+           // Yii::$app->session->setFlash('success', "company added successfully."); 
+           // Yii::$app->response->format = Response::FORMAT_JSON;
+
+            echo "1";
+
+        }
+
+        else
+        {
+
+            echo "0";
+        }
     }
 
     /**

@@ -13,7 +13,6 @@ use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 
-use yii\filters\AccessControl;
 
 /**
  * CompanyController implements the CRUD actions for Company model.
