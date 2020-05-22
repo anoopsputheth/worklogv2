@@ -68,6 +68,8 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'client_type_id', 'company_id', 'email_1', 'business_category_id'], 'required'],
+            [['name'], 'unique'],
+            [['name',], 'trim'],
             [['client_type_id', 'company_id', 'charging_method_id', 'business_category_id'], 'integer'],
             [['daily_backup', 'weekly_backup', 'description'], 'string'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
@@ -89,8 +91,8 @@ class Client extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'client_type_id' => 'Client Type ID',
-            'company_id' => 'Company ID',
+            'client_type_id' => 'Client Type',
+            'company_id' => 'Company',
             'address' => 'Address',
             'zip' => 'Zip',
             'city' => 'City',
@@ -113,7 +115,7 @@ class Client extends \yii\db\ActiveRecord
             'office_working_day_end' => 'Office Working Day End',
             'office_working_hour_start' => 'Office Working Hour Start',
             'office_working_hour_end' => 'Office Working Hour End',
-            'charging_method_id' => 'Charging Method ID',
+            'charging_method_id' => 'Charging Method',
             'charging_rate' => 'Charging Rate',
             'business_category_id' => 'Business Category ID',
             'network_structure' => 'Network Structure',

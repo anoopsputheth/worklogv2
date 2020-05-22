@@ -3,6 +3,14 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+use yii\helpers\ArrayHelper;
+
+use app\modules\company\models\Company;
+use app\models\ClientType;
+use app\models\ChargingMethod;
+use app\models\BusinessCategory;
+
+
 /* @var $this yii\web\View */
 /* @var $model app\modules\client\models\Client */
 /* @var $form yii\widgets\ActiveForm */
@@ -14,9 +22,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'client_type_id')->textInput() ?>
+    <?= $form->field($model, 'client_type_id')
 
-    <?= $form->field($model, 'company_id')->textInput() ?>
+       ->dropDownList(
+
+                    ArrayHelper::map(ClientType::find()->orderBy(['name'=>SORT_ASC])->all(), 'id', 'name'), ['prompt' => 'Select Type of Client']
+
+                   )
+    ?>
+
+
+    <?= $form->field($model, 'company_id')
+
+     ->dropDownList(
+
+             ArrayHelper::map(Company::find()->orderBy(['name'=>SORT_ASC])->all(), 'id', 'name') , ['prompt' => 'Select Company']
+
+            )
+    ?>
+
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
@@ -54,19 +78,40 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'client_referral')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'office_working_day_start')->textInput(['maxlength' => true]) ?>
+   
 
-    <?= $form->field($model, 'office_working_day_end')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'office_working_day_start')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday',], ['prompt' => 'Select']) ?>
+
+    
+
+    <?= $form->field($model, 'office_working_day_end')->dropDownList([ 'sunday' => 'Sunday', 'monday' => 'Monday', 'tuesday' => 'Tuesday', 'wednesday' => 'Wednesday', 'thursday' => 'Thursday', 'friday' => 'Friday', 'saturday' => 'Saturday',], ['prompt' => 'Select']) ?>
+
 
     <?= $form->field($model, 'office_working_hour_start')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'office_working_hour_end')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'charging_method_id')->textInput() ?>
+
+    <?= $form->field($model, 'charging_method_id')
+
+     ->dropDownList(
+
+             ArrayHelper::map(ChargingMethod::find()->orderBy(['name'=>SORT_ASC])->all(), 'id', 'name') , ['prompt' => 'Select Charging Method']
+
+            )
+    ?>
 
     <?= $form->field($model, 'charging_rate')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'business_category_id')->textInput() ?>
+
+    <?= $form->field($model, 'business_category_id')
+
+     ->dropDownList(
+
+             ArrayHelper::map(BusinessCategory::find()->orderBy(['name'=>SORT_ASC])->all(), 'id', 'name') , ['prompt' => 'Select Business Category']
+
+            )
+    ?>
 
     <?= $form->field($model, 'network_structure')->textInput(['maxlength' => true]) ?>
 
@@ -76,12 +121,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'deleted_at')->textInput() ?>
-
+    
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
