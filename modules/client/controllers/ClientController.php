@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 
+use yii\web\BadRequestHttpException;
+
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -86,25 +88,45 @@ class ClientController extends Controller
     public function actionCreate()
     {
 
-       $model = new Client();
 
-       // $model->created_at = time();
+      if (Yii::$app->request->isAjax) {
 
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $model = new Client();
 
-           // Yii::$app->session->setFlash('success', "company added successfully."); 
-           // Yii::$app->response->format = Response::FORMAT_JSON;
+                // $model->created_at = time();
 
-            echo "1";
+                
+                if ($model->load(Yii::$app->request->post())) {
 
-        }
+                   // Yii::$app->session->setFlash('success', "company added successfully."); 
+                   // Yii::$app->response->format = Response::FORMAT_JSON;
 
-        else
-        {
+                    if($model->save())
+                    {
+                        echo "1";
 
-            echo "0";
-        }
+                    }
+
+                    else
+                    {
+                         echo "0";
+                    }
+
+                }  // end if
+
+                else
+                {
+
+                    return $this->renderAjax('create', ['model' => $model]);
+                }
+
+          }   // end if
+
+          else
+          {
+            throw new BadRequestHttpException('This method cannot be called directly');
+          }
+
     }
 
     /**

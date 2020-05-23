@@ -1,11 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
 use yii\grid\GridView;
-use yii\widgets\ActiveForm;
 use yii\widgets\Pjax; 
 
-use yii\helpers\Url;
+use yii\bootstrap\Modal;
 
 use app\modules\company\models\Company;
 
@@ -16,7 +17,7 @@ use app\modules\company\models\Company;
 
 <?php
 
-   yii\bootstrap\Modal::begin([
+    Modal::begin([
 
             'header'=>'<h4>Create Company</h4>',
             'id'=>'modal_create_company',
@@ -25,56 +26,11 @@ use app\modules\company\models\Company;
 
 ?>
 
-
-
-
-<div class="company-form">
-
-    <?php $form = ActiveForm::begin([ 
-
-        'id' => 'form_create_company',
-        'validationUrl' => Url::toRoute('/company/company/validate'),
-        'enableAjaxValidation' => true, 
-        'action' => Url::toRoute('/company/company/create')
-    ]);  
-
-
-        $model = new Company(); ?>
-
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'fax')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'zip')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'city')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'state')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
-
+    <div  id="div_content_modal_create_company"> </div>
 
 <?php
 
- yii\bootstrap\Modal::end();
+  Modal::end();
 
 ?>
 
@@ -99,22 +55,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Company', ['create'], ['class' => 'btn btn-success', 'id' => 'create_company']) ?>
+        <?= Html::a('Create Company', ['create'], ['value' => Url::to('index.php?r=company/company/create'), 'class' => 'btn btn-success', 'id' => 'a_create_company']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
     <?php 
+
            Pjax::begin([
 
              'id' => 'div_pjax_companies_container', 
              'enablePushState' => false
 
            ]) 
+
     ?>
 
       <?= GridView::widget([
+
           'dataProvider' => $dataProvider,
           'filterModel' => $searchModel,
           'columns' => [
@@ -153,65 +112,21 @@ $this->params['breadcrumbs'][] = $this->title;
         '$("document").ready(function(){ 
 
 
-            $("#create_company").click(function(event){   
+            $("#a_create_company").click(function(event){   
 
                event.preventDefault();
 
-               $("#modal_create_company").modal("show");
+               $("#modal_create_company").modal("show")
+               .find("#div_content_modal_create_company")
+               .load($(this).attr("value"));
 
             });
-
 
              
         });
 
 
-        $("form#form_create_company").on("beforeSubmit", function (e) { 
-
-            var form = $(this);
-             // submit form
-
-
-          $.post(
-
-              form.attr("action"),
-              form.serialize(),
-
-          )
-
-
-          .done(function(response){  
-
-               let alertMsg = "";
-
-               $("#modal_create_company").modal("hide"); 
-
-               if(response === "1")
-               {
-                 
-
-                 var url = $("#div_pjax_companies_container li.active a").attr("href");
-
-                 $.pjax.reload({container: "#div_pjax_companies_container", url: url, enablePushState: false});
-
-                 alertMsg = "Company Created Successfully!";
-
-                 $("#div_flash_success").html(alertMsg).fadeIn(3000).animate({opacity: 1.0}, 3000).fadeOut(3000); 
-               }
-
-               else
-               {
-                 alertMsg = "Some error occured while creating company";
-                 $("#div_flash_error").html(alertMsg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow"); 
-               }
-
-           });
-
-           return false;
-
-
-         });
-
+ 
         '
     );
 

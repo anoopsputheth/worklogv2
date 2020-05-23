@@ -4,11 +4,12 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
-use app\modules\company\models\Company;
 use app\models\ClientType;
 use app\models\ChargingMethod;
 use app\models\BusinessCategory;
+use app\modules\company\models\Company;
 
 
 /* @var $this yii\web\View */
@@ -16,9 +17,19 @@ use app\models\BusinessCategory;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+    
 <div class="client-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+
+    <?php $form = ActiveForm::begin([ 
+
+        'id' => 'form_create_client',
+        'validationUrl' => Url::toRoute('/client/client/validate'),
+        'enableAjaxValidation' => true, 
+        'action' => Url::toRoute('/client/client/create')
+    ]);  
+
+    ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -128,4 +139,68 @@ use app\models\BusinessCategory;
 
     <?php ActiveForm::end(); ?>
 
+
 </div>
+
+
+<?php
+
+
+    $this->registerJs(
+
+        '$("document").ready(function(){ 
+
+
+              $("form#form_create_client").on("beforeSubmit", function (e) { 
+
+                     var form = $(this);
+
+                     // submit form
+
+                      $.post(
+
+                          form.attr("action"),
+                          form.serialize(),
+
+                      )
+
+                      .done(function(response){  
+
+                           let alertMsg = "";
+
+                           $("#modal_create_client").modal("hide"); 
+
+                           if(response === "1")
+                           {
+
+                                 var url = $("#div_pjax_clients_container li.active a").attr("href");
+
+                                 $.pjax.reload({container: "#div_pjax_clients_container", url: url, enablePushState: false});
+
+                                 alertMsg = "Client Created Successfully!";
+
+                                 $("#div_flash_success").html(alertMsg).fadeIn(3000).animate({opacity: 1.0}, 3000).fadeOut(3000); 
+                           }
+
+                           else
+                           {
+
+                                 alertMsg = "Some error occured while creating client";
+                                 $("#div_flash_error").html(alertMsg).fadeIn().animate({opacity: 1.0}, 3000).fadeOut("slow"); 
+
+                           }
+
+                       });
+
+                    return false;
+
+             });
+
+
+             
+        }); '
+
+    );
+
+
+?>

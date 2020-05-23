@@ -9,9 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-
 use yii\widgets\ActiveForm;
 use yii\web\Response;
+
+use yii\web\BadRequestHttpException;
 
 
 /**
@@ -88,25 +89,43 @@ class CompanyController extends Controller
     public function actionCreate()
     {  
 
-        $model = new Company();
+          if (Yii::$app->request->isAjax) {
 
-       // $model->created_at = time();
+                $model = new Company();
 
-        
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                // $model->created_at = time();
 
-           // Yii::$app->session->setFlash('success', "company added successfully."); 
-           // Yii::$app->response->format = Response::FORMAT_JSON;
+                
+                if ($model->load(Yii::$app->request->post())) {
 
-            echo "1";
+                   // Yii::$app->session->setFlash('success', "company added successfully."); 
+                   // Yii::$app->response->format = Response::FORMAT_JSON;
 
-        }
+                    if($model->save())
+                    {
+                        echo "1";
 
-        else
-        {
+                    }
 
-            echo "0";
-        }
+                    else
+                    {
+                         echo "0";
+                    }
+
+                }  // end if
+
+                else
+                {
+
+                    return $this->renderAjax('create', ['model' => $model]);
+                }
+
+          }   // end if
+
+          else
+          {
+            throw new BadRequestHttpException('This method cannot be called directly');
+          }
 
     }
 
