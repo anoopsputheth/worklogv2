@@ -17,7 +17,7 @@ use app\modules\company\models\Company;
 
 <?php
 
-    Modal::begin([
+   Modal::begin([
 
             'header'=>'<h4>Create Company</h4>',
             'id'=>'modal_create_company',
@@ -26,13 +26,16 @@ use app\modules\company\models\Company;
 
 ?>
 
-    <div  id="div_content_modal_create_company"> </div>
+    <div  id="div_content_modal_create_company"></div>
 
 <?php
 
-  Modal::end();
+   Modal::end();
 
 ?>
+
+
+
 
 
 <?php
@@ -98,7 +101,11 @@ $this->params['breadcrumbs'][] = $this->title;
       ]); ?>
 
 
-     <?php Pjax::end() ?>
+     <?php 
+
+          Pjax::end() 
+
+     ?>
 
 
 </div>
@@ -123,11 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
             });
 
              
-        });
-
-
- 
-        '
+        });'
     );
 
 

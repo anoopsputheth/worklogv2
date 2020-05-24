@@ -13,6 +13,8 @@ use app\modules\client\models\Client;
 ?>
 
 
+
+
 <?php
 
    yii\bootstrap\Modal::begin([
@@ -24,16 +26,16 @@ use app\modules\client\models\Client;
 
 ?>
 
-
- <div  id="div_content_modal_create_client"> </div>
-
-
+ <div  id="div_content_modal_create_client"></div>
 
 <?php
 
- yii\bootstrap\Modal::end();
+   yii\bootstrap\Modal::end();
 
 ?>
+
+
+
 
 
 <?php
@@ -61,65 +63,74 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
+
+
     <?php 
-           Pjax::begin([
 
-             'id' => 'div_pjax_clients_container', 
-             'enablePushState' => false
+       Pjax::begin([
 
-           ]) 
+         'id' => 'div_pjax_clients_container', 
+         'enablePushState' => false
+
+       ]) 
+
     ?>
 
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'name',
-            'client_type_id',
-            'company_id',
-            'address',
-            //'zip',
-            //'city',
-            //'state',
-            //'contact_person_1',
-            //'contact_person_2',
-            //'contact_person_3',
-            //'contact_person_1_role',
-            //'contact_person_2_role',
-            //'contact_person_3_role',
-            //'phone_1',
-            //'phone_2',
-            //'cell_no',
-            //'fax',
-            //'email_1:email',
-            //'email_2:email',
-            //'email_3:email',
-            //'client_referral',
-            //'office_working_day_start',
-            //'office_working_day_end',
-            //'office_working_hour_start',
-            //'office_working_hour_end',
-            //'charging_method_id',
-            //'charging_rate',
-            //'business_category_id',
-            //'network_structure',
-            //'daily_backup',
-            //'weekly_backup',
-            //'description:ntext',
-            //'created_at',
-            //'updated_at',
-            //'deleted_at',
+                'id',
+                'name',
+                'client_type_id',
+                'company_id',
+                'address',
+                //'zip',
+                //'city',
+                //'state',
+                //'contact_person_1',
+                //'contact_person_2',
+                //'contact_person_3',
+                //'contact_person_1_role',
+                //'contact_person_2_role',
+                //'contact_person_3_role',
+                //'phone_1',
+                //'phone_2',
+                //'cell_no',
+                //'fax',
+                //'email_1:email',
+                //'email_2:email',
+                //'email_3:email',
+                //'client_referral',
+                //'office_working_day_start',
+                //'office_working_day_end',
+                //'office_working_hour_start',
+                //'office_working_hour_end',
+                //'charging_method_id',
+                //'charging_rate',
+                //'business_category_id',
+                //'network_structure',
+                //'daily_backup',
+                //'weekly_backup',
+                //'description:ntext',
+                //'created_at',
+                //'updated_at',
+                //'deleted_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+                ['class' => 'yii\grid\ActionColumn'],
+            ],
+        ]); ?>
 
 
-    <?php Pjax::end() ?>
+
+    <?php 
+
+       Pjax::end() 
+
+    ?>
 
 
 
@@ -145,11 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
             });
 
              
-        });
-
-
- 
-        '
+        });'
     );
 
 
